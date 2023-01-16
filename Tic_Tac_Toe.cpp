@@ -68,7 +68,7 @@ int main() {
   return 0;
 }
 
-// For Defintions / uses of following functions refer to funtion declaration :)
+// For Defintions / uses of following functions refer to function definition at the top :)
 void selectFormat() {
 
   char format;
