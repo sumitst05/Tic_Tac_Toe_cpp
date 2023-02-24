@@ -7,9 +7,19 @@ This is a simple command-line Tic Tac Toe game written in C++.
 
 ## Installation
 
-1. Clone the repository: ```bash git clone https://github.com/sumitst05/Tic_Tac_Toe_cpp.git```
-2. cd into Tic_Tac_Toe_cpp directory: ```bash cd Tic_Tac_Toe_cpp```
-3. Compile and Run the code using g++: ```bash g++ -o Tic_Tac_Toe Tic_Tac_Toe.cpp && ./Tic_Tac_Toe``` (or you can use an IDE)
+1. Clone the repository:
+```bash
+git clone https://github.com/sumitst05/Tic_Tac_Toe_cpp.git
+```
+2. cd into Tic_Tac_Toe_cpp directory:
+```bash 
+cd Tic_Tac_Toe_cpp
+```
+3. Compile and Run the code using g++:
+```bash
+g++ -o Tic_Tac_Toe Tic_Tac_Toe.cpp && ./Tic_Tac_Toe
+```
+(or you can use an IDE)
 
 ## How To Play
 
