@@ -7,8 +7,8 @@ This is a simple command-line Tic Tac Toe game written in C++.
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/sumitst05/TicTacToe.git`
-2. Compile and Run the code using g++: `g++ -o Tic_Tac_Toe Tic_Tac_Toe.cpp && ./Tic_Tac_Toe` (or you can use an IDE)
+1. Clone the repository: ```git clone https://github.com/sumitst05/TicTacToe.git```
+2. Compile and Run the code using g++: ```g++ -o Tic_Tac_Toe Tic_Tac_Toe.cpp && ./Tic_Tac_Toe``` (or you can use an IDE)
 
 ## How To Play
 
