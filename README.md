@@ -29,7 +29,7 @@ g++ -o Tic_Tac_Toe Tic_Tac_Toe.cpp && ./Tic_Tac_Toe
     - Take turns and play with the computer (Computer is really dumb 😅)
   - Multi Player: 
     - Select the marker for each player
-    - Take turns entering moves by typing numers from 1 to 9 to place your symbol (X or O) there.
+    - Take turns entering moves by typing numers from 1 to 9 to place your symbol there.
 
 ## Contributing
 
