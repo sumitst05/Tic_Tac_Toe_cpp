@@ -15,7 +15,7 @@ This is a simple command-line Tic Tac Toe game written in C++.
 - Start the game
 - Select [S]ingle / [M]ulti-Player option.
   - Single Player: 
-    - Take turns ans play with the computer (Computer is really dumb 😅)
+    - Take turns and play with the computer (Computer is really dumb 😅)
   - Multi Player: 
     - Select the marker for each player
     - Take turns entering moves by typing numers from 1 to 9 to place your symbol (X or O) there.
