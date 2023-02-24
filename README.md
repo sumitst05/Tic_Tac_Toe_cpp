@@ -1,4 +1,4 @@
-# 😁❌⭕ Tic_Tac_Toe_cpp
+# ❌ Tic_Tac_Toe_cpp ⭕
 
 This is a simple command-line Tic Tac Toe game written in C++.
 - Has Single & Multi Player options.
