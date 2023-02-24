@@ -1,5 +1,30 @@
 # Tic_Tac_Toe_cpp
-A Tic Tac Toe game made in C++.
-Consists Single/Multi Player options.
-Can select different characters as Marker in Multi-Player option.
-Includes Invalid-Input flags (Program won't fall in an infinite loop if character is entered in buffer whe asked for integer or vice-cersa)
+
+This is a simple command-line Tic Tac Toe game written in C++.
+- Has Single & Multi Player options.
+- Can select different characters as Marker in Multi-Player option.
+- Includes Invalid-Input flags (Program won't fall in an infinite loop if character is entered in buffer whe asked for integer or vice-cersa)
+
+## Installation
+
+1. Clone the repository
+2. Compile the code using g++
+
+## How To Play
+
+- Start the game
+- Select [S]ingle / [M]ulti-Player option.
+  - Single Player: 
+    - Take turns ans play with the computer (Computer is really dumb 😅)
+  - Multi Player: 
+    - Select the marker for each player
+    - Take turns entering moves by typing numers from 1 to 9 to place your symbol (X or O) there.
+
+## Contributing
+
+If you find a bug or have an idea for a new feature, feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE)
+
