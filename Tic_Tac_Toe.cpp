@@ -157,12 +157,6 @@ void playerMove(char *space, const char PLAYER) {
 }*/
 
 int evaluateBoard(char *space, const char COMPUTER) {
-  // Evaluation logic goes here
-  // Assign a score to the current game state
-  // Positive score for computer win, negative for player win, 0 for a tie
-  // You can define your own evaluation heuristics
-  // Example heuristic: +10 for each computer's marker in a winning line, -10 for each player's marker
-
   const int WIN_SCORE = 10;
   const int LOSE_SCORE = -10;
   const int TIE_SCORE = 0;
