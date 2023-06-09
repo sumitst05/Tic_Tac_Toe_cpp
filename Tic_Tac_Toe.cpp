@@ -1,38 +1,40 @@
 #include <ctime>
 #include <ctype.h>
 #include <iostream>
+#include <climits>
 
 void selectFormat(); // To select Single / Multi - Player fromat
 
 void resetBoard(char *space); // For New Board
 void printBoard(char *space); // Prints  the Board
 
-bool checkWinner_Single(
-    char *space, const char PLAYER,
-    const char COMPUTER); // Checks winner in Single PLayer Format
-bool checkWinner_Multi(
-    char *space, const char PLAYER1,
-    const char PLAYER2);              // Checks winner in Multi Player Format
+bool checkWinner_Single(char *space, const char PLAYER, const char COMPUTER); // Checks winner in Single PLayer Format
+bool checkWinner_Multi(char *space, const char PLAYER1, const char PLAYER2);              // Checks winner in Multi Player Format
 bool checkTie(char *space);           // Checks Tie in both formats
 bool check_invalid_input(int number); /*Check for input of invalid type
                                       (Program won't break if receives
                                       entry of invalid data type :) )*/
-void playerMove(char *space,
-                const char PLAYER); // Player Move in Single Player Format
-void computerMove(char *space,
-                  const char COMPUTER); // Computer Move in Single Player Format
+void playerMove(char *space, const char PLAYER); // Player Move in Single Player Format
+//void computerMove(char *space, const char COMPUTER); // Computer Move in Single Player Format
 
-void player1_Move(char *space,
-                  const char PLAYER1); // Player1 Move in Multi Player Format
-void player2_Move(char *space,
-                  const char PLAYER2); // Player2 Move in Multi Player Format
+int evaluateBoard(char *space, const char COMPUTER);  // function to evaluate the board state
+
+// struct for minimax
+struct Move {
+  int score;
+  int index;
+};
+Move minimax(char *space, int depth, bool isMaximizingPlayer, const char PLAYER, const char COMPUTER);
+
+void player1_Move(char *space, const char PLAYER1); // Player1 Move in Multi Player Format
+void player2_Move(char *space, const char PLAYER2); // Player2 Move in Multi Player Format
 
 void Single_Player(char format); // Single Player game-flow
 void Multi_Player(char format);  // Multi Player game-flow
 
 int main() {
   char response;
-
+  
   do {
 
     response = ' ';
@@ -103,6 +105,7 @@ void resetBoard(char *space) {
     space[i] = ' ';
   }
 }
+
 void printBoard(char *space) {
   std::cout << '\n';
   std::cout << "     |     |     " << '\n';
@@ -139,7 +142,8 @@ void playerMove(char *space, const char PLAYER) {
 
   } while ((!number > 0 || !number < 8));
 }
-void computerMove(char *space, const char COMPUTER) {
+
+/*void computerMove(char *space, const char COMPUTER) {
   int number;
   srand(time(0));
 
@@ -149,6 +153,103 @@ void computerMove(char *space, const char COMPUTER) {
       space[number] = COMPUTER;
       break;
     }
+  }
+}*/
+
+int evaluateBoard(char *space, const char COMPUTER) {
+  // Evaluation logic goes here
+  // Assign a score to the current game state
+  // Positive score for computer win, negative for player win, 0 for a tie
+  // You can define your own evaluation heuristics
+  // Example heuristic: +10 for each computer's marker in a winning line, -10 for each player's marker
+
+  const int WIN_SCORE = 10;
+  const int LOSE_SCORE = -10;
+  const int TIE_SCORE = 0;
+
+  // Check for winning patterns
+  if ((space[0] == space[1] && space[1] == space[2] && space[2] == COMPUTER) ||
+      (space[3] == space[4] && space[4] == space[5] && space[5] == COMPUTER) ||
+      (space[6] == space[7] && space[7] == space[8] && space[8] == COMPUTER) ||
+      (space[0] == space[3] && space[3] == space[6] && space[6] == COMPUTER) ||
+      (space[1] == space[4] && space[4] == space[7] && space[7] == COMPUTER) ||
+      (space[2] == space[5] && space[5] == space[8] && space[8] == COMPUTER) ||
+      (space[0] == space[4] && space[4] == space[8] && space[8] == COMPUTER) ||
+      (space[2] == space[4] && space[4] == space[6] && space[6] == COMPUTER)) {
+    return WIN_SCORE;
+  }
+
+  // Check for losing patterns
+  if ((space[0] == space[1] && space[1] == space[2] && space[2] != ' ' && space[2] != COMPUTER) ||
+      (space[3] == space[4] && space[4] == space[5] && space[5] != ' ' && space[5] != COMPUTER) ||
+      (space[6] == space[7] && space[7] == space[8] && space[8] != ' ' && space[8] != COMPUTER) ||
+      (space[0] == space[3] && space[3] == space[6] && space[6] != ' ' && space[6] != COMPUTER) ||
+      (space[1] == space[4] && space[4] == space[7] && space[7] != ' ' && space[7] != COMPUTER) ||
+      (space[2] == space[5] && space[5] == space[8] && space[8] != ' ' && space[8] != COMPUTER) ||
+      (space[0] == space[4] && space[4] == space[8] && space[8] != ' ' && space[8] != COMPUTER) ||
+      (space[2] == space[4] && space[4] == space[6] && space[6] != ' ' && space[6] != COMPUTER)) {
+    return LOSE_SCORE;
+  }
+
+  // No winning or losing patterns, it's a tie
+  for (int i = 0; i < 9; i++) {
+    if (space[i] == ' ') {
+      return -1; // Game is not finished yet
+    }
+  }
+
+  return TIE_SCORE;
+}
+
+Move minimax(char *space, int depth, bool isMaximizingPlayer, const char PLAYER, const char COMPUTER) {
+  int score = evaluateBoard(space, COMPUTER);
+
+  // Base cases
+  if (score == 10)
+    return {score - depth, -1};
+  if (score == -10)
+    return {score + depth, -1};
+  if (score == 0)
+    return {0, -1};
+
+  if (isMaximizingPlayer) {
+    int bestScore = INT_MIN;
+    int bestMove = -1;
+
+    for (int i = 0; i < 9; i++) {
+      if (space[i] == ' ') {
+        space[i] = COMPUTER;
+
+        Move move = minimax(space, depth + 1, false, PLAYER, COMPUTER);
+        if (move.score > bestScore) {
+          bestScore = move.score;
+          bestMove = i;
+        }
+
+        space[i] = ' ';
+      }
+    }
+
+    return {bestScore, bestMove};
+  } else {
+    int bestScore = INT_MAX;
+    int bestMove = -1;
+
+    for (int i = 0; i < 9; i++) {
+      if (space[i] == ' ') {
+        space[i] = PLAYER;
+
+        Move move = minimax(space, depth + 1, true, PLAYER, COMPUTER);
+        if (move.score < bestScore) {
+          bestScore = move.score;
+          bestMove = i;
+        }
+
+        space[i] = ' ';
+      }
+    }
+
+    return {bestScore, bestMove};
   }
 }
 
@@ -190,6 +291,7 @@ bool checkTie(char *space) {
   std::cout << "IT'S A TIE!";
   return true;
 }
+
 bool checkWinner_Multi(char *space, const char PLAYER1, const char PLAYER2) {
   if ((space[0] != ' ') && (space[0] == space[1]) && (space[1] == space[2])) {
     space[0] == PLAYER1 ? std::cout << "PLAYER 1 (" << PLAYER1 << ") WINS !\n"
@@ -255,6 +357,7 @@ void player1_Move(char *space, const char PLAYER1) {
     }
   } while (!(number > 0) || !(number < 8)  || space[number] != ' ');
 }
+
 void player2_Move(char *space, const char PLAYER2) {
   int number;
 
@@ -302,7 +405,12 @@ void Single_Player(char format) {
       break;
     }
 
-    computerMove(space, COMPUTER);
+    // Computer's turn
+    std::cout << "Computer's turn:\n";
+
+    Move bestMove = minimax(space, 0, true, PLAYER, COMPUTER);
+    space[bestMove.index] = COMPUTER;
+
     system("clear");
     std::cout << "\n\t\t********* TIC TAC TOE *********\n\n";
     printBoard(space);
@@ -315,6 +423,7 @@ void Single_Player(char format) {
     }
   }
 }
+
 void Multi_Player(char format) {
   char space[9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
   char PLAYER1;

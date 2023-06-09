@@ -4,6 +4,7 @@ This is a simple command-line Tic Tac Toe game written in C++.
 - Has Single & Multi Player options.
 - Can select different characters as Marker in Multi-Player option.
 - Includes Invalid-Input flags (Program won't fall in an infinite loop if character is entered in buffer whe asked for integer or vice-cersa)
+- Implements Minimax Algorithm so the computer is able to make the best moves!!
 
 ## Installation
 
@@ -26,7 +27,7 @@ g++ -o Tic_Tac_Toe Tic_Tac_Toe.cpp && ./Tic_Tac_Toe
 - Start the game
 - Select [S]ingle / [M]ulti-Player option.
   - Single Player: 
-    - Take turns and play with the computer (Computer is really dumb 😅)
+    - Take turns and play with the computer (Computer is actually smart now with the implementation of Minimax Algorithm)
   - Multi Player: 
     - Select the marker for each player
     - Take turns entering moves by typing numers from 1 to 9 to place your symbol there.
